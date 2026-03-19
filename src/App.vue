@@ -63,7 +63,8 @@
       </li>
     </ul>
     <input type="text" placeholder="Beverage Name" v-model="bev_name" />
-    <button @click = "createBeverage">🍺 Make Beverage</button>
+    <button @click = "makeBeverage( bev_name )">🍺 Make Beverage</button>
+    <button @click = "emptyBeverage">Empty Beverages</button>
   </div>
   <div id="beverage-container" style="margin-top: 20px">
 <ul>
@@ -87,27 +88,13 @@
 <script setup lang="ts">
 import Beverage from "./components/Beverage.vue";
 import { useBeverageStore } from "./stores/beverageStore";
-import { bases, syrups, creamers, BeverageType} from "./types/beverage";
+import { bases, syrups, creamers} from "./types/beverage";
 
-const {makeBeverage,showBeverage} = useBeverageStore();
+const {makeBeverage,showBeverage, emptyBeverage} = useBeverageStore();
 const beverageStore = useBeverageStore();
 const {SavedBeverages} = useBeverageStore();
 
 var bev_name = "";
-
-function createBeverage(){
- if (bev_name === "") return;
-var savedBev: BeverageType ={
-  id:beverageStore.currentTemp.toString()+beverageStore.currentBase.id+beverageStore.currentSyrup.id+beverageStore.currentCream.id , 
-  name: bev_name, 
-  temp: beverageStore.currentTemp, 
-  base: beverageStore.currentBase, 
-  syrup:beverageStore.currentSyrup, 
-  creamer: beverageStore.currentCream 
-}
-makeBeverage(savedBev);
-}
-
 </script>
 
 <style lang="scss">

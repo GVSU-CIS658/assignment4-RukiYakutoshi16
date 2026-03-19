@@ -19,7 +19,6 @@ if (color=="transparent"){
   document.documentElement.style.setProperty("--froth-transparent","0%"); 
 }
 else{ 
-  console.log(color);
   document.documentElement.style.setProperty("--foam-color", color); 
   document.documentElement.style.setProperty("--froth-transparent","20%");}
 }
