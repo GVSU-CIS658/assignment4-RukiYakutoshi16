@@ -1,9 +1,9 @@
 <template>
   <div>
     <Beverage :isIced="beverageStore.currentTemp === 'Cold'"
-              :baseType="currentBase"
-              :syrupType="currentSyrup"
-              :creamerType="currentCream" />
+              :baseType="beverageStore.currentBase"
+              :syrupType="beverageStore.currentSyrup"
+              :creamerType="beverageStore.currentCream" />
     <ul>
       <li>
         <template v-for="temp in beverageStore.temps" :key="temp">
@@ -27,7 +27,7 @@
               name="base"
               :id="`r${base.id}`"
               :value="base"
-              v-model="currentBase"
+              v-model="beverageStore.currentBase"
             />
             {{ base.name}}
           </label>
@@ -41,7 +41,7 @@
               name="syrup"
               :id="`r${syrup.id}`"
               :value="syrup"
-              v-model="currentSyrup"
+              v-model="beverageStore.currentSyrup"
             />
             {{ syrup.name}}
           </label>
@@ -55,29 +55,59 @@
               name="creamer"
               :id="`r${creamer.id}`"
               :value="creamer"
-              v-model="currentCream"
+              v-model="beverageStore.currentCream"
             />
             {{ creamer.name}}
           </label>
         </template>
       </li>
     </ul>
-    <input type="text" placeholder="Beverage Name" />
-    <button>🍺 Make Beverage</button>
+    <input type="text" placeholder="Beverage Name" v-model="bev_name" />
+    <button @click = "createBeverage">🍺 Make Beverage</button>
   </div>
-  <div id="beverage-container" style="margin-top: 20px"></div>
+  <div id="beverage-container" style="margin-top: 20px">
+<ul>
+      <li>
+        <template v-for="savedBev in SavedBeverages" :key="savedBev.id">
+          <label>
+            <input
+              @click="showBeverage(savedBev)"
+              name = "beverage"
+              type="radio"
+            />
+            {{ savedBev.name}}
+          </label>
+        </template>
+      </li>
+    </ul>
+
+  </div>
 </template>
 
 <script setup lang="ts">
 import Beverage from "./components/Beverage.vue";
 import { useBeverageStore } from "./stores/beverageStore";
-import { bases, syrups, creamers,  defaultBase, defaultCreamer, defaultSyrup} from "./types/beverage";
+import { bases, syrups, creamers, BeverageType} from "./types/beverage";
 
-const currentCream = defaultCreamer;
-const currentSyrup = defaultSyrup;
-const currentBase = defaultBase;
-
+const {makeBeverage,showBeverage} = useBeverageStore();
 const beverageStore = useBeverageStore();
+const {SavedBeverages} = useBeverageStore();
+
+var bev_name = "";
+
+function createBeverage(){
+ if (bev_name === "") return;
+var savedBev: BeverageType ={
+  id:beverageStore.currentTemp.toString()+beverageStore.currentBase.id+beverageStore.currentSyrup.id+beverageStore.currentCream.id , 
+  name: bev_name, 
+  temp: beverageStore.currentTemp, 
+  base: beverageStore.currentBase, 
+  syrup:beverageStore.currentSyrup, 
+  creamer: beverageStore.currentCream 
+}
+makeBeverage(savedBev);
+}
+
 </script>
 
 <style lang="scss">
