@@ -25,7 +25,7 @@ export const useBeverageStore = defineStore("BeverageStore", {
   actions: {
     makeBeverage(name: string) {
       var exit = false;
-      if (name === "" || name == null) { alert("Beverage Name is invalid"); return; }
+      if (name.trim().length === 0 || name == null) { alert("Beverage Name is invalid"); return; }
 
       var savedBev: BeverageType = {
         id: this.currentTemp.toString() + this.currentBase.id + this.currentSyrup.id + this.currentCream.id,
