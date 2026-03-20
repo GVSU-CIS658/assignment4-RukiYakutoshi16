@@ -6,13 +6,14 @@
 
 <script setup lang="ts">
 import { CreamerType} from ".././types/beverage";
-import { watch} from "vue";
+import {onMounted, watch} from "vue";
 
 type creamProp = {
  cream: CreamerType;
 }
 const props = defineProps<creamProp>();
 watch(()=>props.cream, (x)=>{updateCream(x.color);});
+onMounted(()=>updateCream(props.cream.color))
 function updateCream(color:string){
   
 if (color=="transparent"){

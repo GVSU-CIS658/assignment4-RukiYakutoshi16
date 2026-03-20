@@ -4,13 +4,14 @@
 
 <script setup lang="ts">
 import { SyrupType } from '../types/beverage';
-import {watch} from "vue";
+import {onMounted,watch} from "vue";
 
 type SyrupProp ={
   syrup: SyrupType
 }
 const props = defineProps<SyrupProp>()
   watch(()=>props.syrup, x => updateSyrupColor(x.color));
+  onMounted(()=>updateSyrupColor(props.syrup.color))
 
 function updateSyrupColor(color:string){
   

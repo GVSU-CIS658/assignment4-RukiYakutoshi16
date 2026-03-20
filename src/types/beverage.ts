@@ -41,7 +41,7 @@ const syrups: Ref<SyrupType[]> = ref(iSyrups);
 
 const savedBeverages: BeverageType[] = [];
 
-const currentTemp = ref(temps.value[1]);
+const currentTemp = ref(temps.value[0]);
 const defaultBase = ref(bases.value[0]);
 const defaultCreamer = ref(creamers.value[0]);
 const defaultSyrup = ref(syrups.value[0]);

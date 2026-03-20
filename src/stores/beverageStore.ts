@@ -4,6 +4,7 @@ import temperatures from "../data/tempretures.json";
 import creamers from "../data/creamers.json"
 import syrups from "../data/syrups.json"
 import bases from "../data/bases.json"
+import Beverage from "../components/Beverage.vue";
 
 
 export const useBeverageStore = defineStore("BeverageStore", {
@@ -11,11 +12,11 @@ export const useBeverageStore = defineStore("BeverageStore", {
     temps: temperatures,
     currentTemp: temperatures[0],
     creamers,
-    currentCream: creamers[0],
+    currentCream: { ...creamers[0] },
     syrups,
-    currentSyrup: syrups[0],
+    currentSyrup: { ...syrups[0] },
     bases,
-    currentBase: bases[0],
+    currentBase: { ...bases[0] },
     SavedBeverages: savedBeverages,
 
 
@@ -52,6 +53,7 @@ export const useBeverageStore = defineStore("BeverageStore", {
     },
     emptyBeverage() {
       this.SavedBeverages.splice(0, this.SavedBeverages.length);
+      localStorage.clear();
     }
   },
   persist: true,
