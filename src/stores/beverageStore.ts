@@ -4,7 +4,7 @@ import temperatures from "../data/tempretures.json";
 import creamers from "../data/creamers.json"
 import syrups from "../data/syrups.json"
 import bases from "../data/bases.json"
-import Beverage from "../components/Beverage.vue";
+
 
 
 export const useBeverageStore = defineStore("BeverageStore", {
